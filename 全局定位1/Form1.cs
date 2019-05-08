@@ -294,35 +294,22 @@ namespace 全局定位1
             timer3.Stop();
             
         }
-       
+
         Image i = Image.FromFile("车.PNG");
+
         private void button3_Click_1(object sender, EventArgs e)
         {
             for(int a = 0;a<1000;a++)
             {
-
-                //Image ima = Image.FromFile("车.PNG");
                 //pictureBox2.Image = null;
                 //i.Dispose();
-
-                //RotateFormCenter(ima, a);
-                //i = (Image)ima.Clone();
-                //ima.Dispose();
+                //i = (Image)imgofCar.Clone();
+                //RotateFormCenter(i, a);
                 //pictureBox2.Image = i;
 
-                pictureBox2.Image = null;
-                imgofCar.Dispose();
-                imgofCar = Image.FromFile("车.PNG");
-                RotateFormCenter(imgofCar, a);
-                pictureBox2.Image = imgofCar;
-
+                RotateFormCenter(pictureBox2, a);
             }
            
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            pictureBox2.Image = imgofCar;
         }
 
         private void RotateFormCenter(Image image, float angle)//任意角度旋转的方法
@@ -334,6 +321,19 @@ namespace 全局定位1
                 g.Transform = x;
                 g.DrawImage(image, 0, 0);
                 g.Dispose();
+        }
+
+        private void RotateFormCenter(PictureBox pb, float angle)//任意角度旋转的方法
+        {
+            Bitmap bmp = new Bitmap(imgofCar);
+            Graphics g = Graphics.FromImage(bmp);
+            Matrix x = new Matrix();
+            PointF point = new PointF(bmp.Width / 2f, bmp.Height / 2f);
+            x.RotateAt(angle, point);
+            g.Transform = x;
+            g.DrawImage(bmp, 0, 0);
+            g.Dispose();
+            pb.Image = bmp;
         }
     }
 }

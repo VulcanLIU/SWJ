@@ -47,3 +47,12 @@ G:\过去——I盘拓展\SW\全向底盘设计\全局定位\孝杰程序\全局
 G:\过去——I盘拓展\SW\全向底盘设计\全局定位\孝杰程序\全局定位3.1调试\全局定位3.1调试\全局定位1\obj\x86\Debug\全局定位1.pdb
 G:\过去——I盘拓展\SW\全向底盘设计\全局定位\孝杰程序\全局定位3.1调试\全局定位3.1调试\全局定位1\bin\Debug\全局定位1.exe
 G:\过去——I盘拓展\SW\全向底盘设计\全局定位\孝杰程序\全局定位3.1调试\全局定位3.1调试\全局定位1\bin\Debug\全局定位1.pdb
+G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\bin\Debug\全局定位1.exe
+G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\bin\Debug\全局定位1.pdb
+G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\obj\x86\Debug\全局定位1.csprojResolveAssemblyReference.cache
+G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\obj\x86\Debug\全局定位1.Form1.resources
+G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\obj\x86\Debug\全局定位1.Properties.Resources.resources
+G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\obj\x86\Debug\全局定位1.csproj.GenerateResource.Cache
+G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\obj\x86\Debug\全局定位1.csproj.CoreCompileInputs.cache
+G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\obj\x86\Debug\全局定位1.exe
+G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\obj\x86\Debug\全局定位1.pdb

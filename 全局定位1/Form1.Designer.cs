@@ -50,6 +50,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -68,8 +69,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -258,7 +257,6 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.button7);
             this.tabPage2.Controls.Add(this.button3);
             this.tabPage2.Controls.Add(this.checkBox1);
             this.tabPage2.Controls.Add(this.button1);
@@ -273,6 +271,16 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "手动控制";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(138, 213);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(55, 14);
+            this.button3.TabIndex = 17;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
             // checkBox1
             // 
@@ -446,26 +454,6 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(138, 213);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(55, 14);
-            this.button3.TabIndex = 17;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(220, 213);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(55, 14);
-            this.button7.TabIndex = 18;
-            this.button7.Text = "button7";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -538,7 +526,6 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button7;
     }
 }
 
