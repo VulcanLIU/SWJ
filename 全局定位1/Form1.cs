@@ -26,7 +26,7 @@ namespace 全局定位1
         double x = 700.0;
         double y = 372;
         double p = 0;
-        float w=0;
+        //float w=0;
 
         public Image imgofCar = Image.FromFile("车.PNG");
         public Image imgofGroud = Image.FromFile("比赛场地.PNG");
@@ -79,11 +79,11 @@ namespace 全局定位1
             {
                 serialPort1.Close();
                 button2.Text = "打开串口";
+                groupBox2.Enabled = false;
             }
             else
             {
                 //要打开串口要看波特率 串口等有没有设置对
-                bool no_error_flag = true;
                 try
                 {
                     serialPort1.BaudRate = Convert.ToInt32(comboBox1.SelectedItem);
@@ -91,7 +91,6 @@ namespace 全局定位1
                 catch (ArgumentException e1)
                 {
                     this.errorProvider1.SetError(this.comboBox1, "不能为空");
-                    no_error_flag = false;
                 }
                 try
                 {
@@ -100,7 +99,6 @@ namespace 全局定位1
                 catch (ArgumentException e2)
                 {
                     this.errorProvider1.SetError(this.comboBox2, "不能为空");
-                    no_error_flag = false;
                 }
                 try
                 {
@@ -109,11 +107,12 @@ namespace 全局定位1
                 catch
                 {
                     MessageBox.Show("端口错误", "警告");
-                    no_error_flag = false;
                 }
-                if (no_error_flag)
+                if (serialPort1.IsOpen)
                 {
                     button2.Text = "断开连接";
+                    groupBox2.Enabled = true;
+                    this.errorProvider1.Clear();
                 }
               }
          }
@@ -135,6 +134,8 @@ namespace 全局定位1
         {
             //读取串口中的所有数据
             string readfromport = serialPort1.ReadExisting();
+
+            //保存读取到的所有数据
             data_warehouse += readfromport;
 
             //把读到的数据显示在textbox
@@ -205,8 +206,8 @@ namespace 全局定位1
                     Debug.WriteLine(words[2]);
                     Debug.WriteLine(words[3]);
                     Debug.WriteLine(words[4]);
-                    w = (float)p;
-                    RotateFormCenter(pictureBox2.Image, w);//这里我需要得到陀螺仪给的角度p，任意角度旋转
+                    
+                    RotateFormCenter(pictureBox2.Image, (float)p);//这里我需要得到陀螺仪给的角度p，任意角度旋转
                     this.pictureBox2.Refresh();  
                 }
                 catch (Exception e)

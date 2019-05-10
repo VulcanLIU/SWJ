@@ -187,6 +187,7 @@
             this.groupBox2.Controls.Add(this.button6);
             this.groupBox2.Controls.Add(this.textBox2);
             this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Enabled = false;
             this.groupBox2.Font = new System.Drawing.Font("华文仿宋", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox2.Location = new System.Drawing.Point(562, 280);
             this.groupBox2.Name = "groupBox2";
