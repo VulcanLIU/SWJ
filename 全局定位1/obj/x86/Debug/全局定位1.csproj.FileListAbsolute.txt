@@ -56,4 +56,3 @@ G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\obj\x86\Debug\�
 G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\obj\x86\Debug\全局定位1.csproj.CoreCompileInputs.cache
 G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\obj\x86\Debug\全局定位1.exe
 G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\obj\x86\Debug\全局定位1.pdb
-G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\bin\Debug\全局定位1.exe.config

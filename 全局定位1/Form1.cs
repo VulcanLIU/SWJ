@@ -301,11 +301,13 @@ namespace 全局定位1
         {
             for(int a = 0;a<1000;a++)
             {
-                pictureBox2.Image = null;
-                i.Dispose();
-                i = (Image)imgofCar.Clone();
-                RotateFormCenter(i, a);
-                pictureBox2.Image = i;
+                //pictureBox2.Image = null;
+                //i.Dispose();
+                //i = (Image)imgofCar.Clone();
+                //RotateFormCenter(i, a);
+                //pictureBox2.Image = i;
+
+                RotateFormCenter(pictureBox2, a);
             }
            
         }
@@ -325,18 +327,13 @@ namespace 全局定位1
         {
             Bitmap bmp = new Bitmap(imgofCar);
             Graphics g = Graphics.FromImage(bmp);
-            Graphics g1 = g;
             Matrix x = new Matrix();
             PointF point = new PointF(bmp.Width / 2f, bmp.Height / 2f);
             x.RotateAt(angle, point);
             g.Transform = x;
             g.DrawImage(bmp, 0, 0);
             g.Dispose();
-            
-            pb.Image = bmp ;
-
-            bmp.Dispose();
-
+            pb.Image = bmp;
         }
     }
 }
