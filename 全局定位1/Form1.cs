@@ -323,6 +323,10 @@ namespace 全局定位1
                 g.DrawImage(image, 0, 0);
                 g.Dispose();
         }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            serialPort1.WriteLine(textBox2.Text);
+        }
 
         private void RotateFormCenter(PictureBox pb, float angle)//任意角度旋转的方法
         {

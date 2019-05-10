@@ -198,13 +198,12 @@
             // 
             // button6
             // 
-            this.button6.Font = new System.Drawing.Font("Adobe Pi Std", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button6.Location = new System.Drawing.Point(220, 30);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(80, 26);
-            this.button6.TabIndex = 18;
-            this.button6.Text = "Send";
-            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Size = new System.Drawing.Size(75, 26);
+            this.button6.TabIndex = 0;
+            this.button6.Text = "发送";
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // textBox2
             // 
