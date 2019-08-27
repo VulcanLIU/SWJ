@@ -23,13 +23,16 @@ namespace 全局定位1
         Stopwatch sw = new Stopwatch();
 
         //PID暂存
-        double x = 700.0;
-        double y = 372;
+        double x = 0;
+        double y = 0;
         double p = 0;
         //float w=0;
 
         public Image imgofCar = Image.FromFile("车.PNG");
         public Image imgofGroud = Image.FromFile("比赛场地.PNG");
+
+        //绘图原点
+        int[] Origin_Position = new int[2];//{pictureBox1.Width, pictureBox1.Height};
 
         public Form1()
         {
@@ -37,16 +40,47 @@ namespace 全局定位1
             //获取端口列
             serialPort1.DataReceived += DataReceivedHandler;
             sw.Start();
+
+            Origin_Position[0] = pictureBox1.Width / 2; ///原点x坐标
+            Origin_Position[1] = pictureBox1.Height;///原点y坐标
+
             Control.CheckForIllegalCrossThreadCalls = false;  //防止跨线程出错
-            //定时器中断时间
-            timer1.Interval = 100;
-            timer2.Interval = 100;
-            timer3.Interval = 300; 
+            pictureBox1.MouseClick += PictureBox1_MouseClick;
+            textBox3.TextChanged += TextBox3_TextChanged;
+            textBox4.TextChanged += TextBox3_TextChanged;
         }
+
+        private void TextBox3_TextChanged(object sender, EventArgs e)
+        {
+            textBox2.Text = "targetX:" + textBox3.Text + "targetY:" + textBox4.Text;
+        }
+
+        private void PictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                int _x = MousePosition.X - this.Location.X - pictureBox1.Location.X - groupBox1.Location.X;
+                float x_mm = (float)_x / pictureBox1.Width * 5000;
+                int _y = MousePosition.Y - this.Location.Y - pictureBox1.Location.Y - groupBox1.Location.Y - 40;
+                float y_mm = (float)(pictureBox1.Height - _y) / pictureBox1.Height * 5000;
+                textBox3.Text = x_mm + "";
+                textBox4.Text = y_mm + "";
+                Graphics g = pictureBox1.CreateGraphics();
+                Pen pen = new Pen(Color.Red, 3);
+                g.DrawEllipse(pen, _x, _y, 5, 5);
+                g.Dispose();
+
+            }
+            if (checkBox3.Checked)
+            {
+                serialPort1.WriteLine(textBox2.Text);
+            }
+        }
+
         static int buffersize = 18;   //十六进制数的大小（假设为9Byte,可调整数字大小）
         byte[] buffer = new Byte[buffersize];   //创建缓冲区
 
-        
+
         private void Form1_Load(object sender, EventArgs e)
         {
             comboBox1.Items.Add("1200");
@@ -65,12 +99,12 @@ namespace 全局定位1
                 this.comboBox2.Items.AddRange(ports);
                 ///设置波特率
                 serialPort1.BaudRate = Convert.ToInt32(comboBox1.Text);
-                
+
             }
             catch (Exception ex)
             {
-                
-            }  
+
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)//接收/暂停数据按钮
@@ -114,19 +148,8 @@ namespace 全局定位1
                     groupBox2.Enabled = true;
                     this.errorProvider1.Clear();
                 }
-              }
-         }
- 
-        private void timer3_Tick(object sender, EventArgs e)//第三定位器
-        {
-            if (serialPort1.IsOpen)
-            {
-                /*textBox1.Text = data_warehouse;
-                textBox1.SelectionStart = textBox1.TextLength;//光标定位到文本最后
-                textBox1.ScrollToCaret();*/
-                UpdateQueueValue();
             }
-          }
+        }
 
         //串口接收完成事件——接收所有数据
         string data_warehouse = "";
@@ -137,15 +160,19 @@ namespace 全局定位1
 
             //保存读取到的所有数据
             data_warehouse += readfromport;
-
             //把读到的数据显示在textbox
-            textBox1.Text = data_warehouse;
+            if (checkBox2.Checked)
+            { }//textBox1.ScrollToCaret(); }// textBox1.Text += readfromport; }
+            else
+                textBox1.AppendText(readfromport);
 
             //从读取到的数据中提取XYP
-            if (huitu_flag){tiquXYP();}
+            if (huitu_flag) { tiquXYP(); }
         }
 
-        private void tiquXYP ()
+        string[] separators = { "X:", "Y:", "P:" };
+        int pos = 0;
+        private void tiquXYP()
         {
             while (data_warehouse.Length > 35)
             {
@@ -176,57 +203,15 @@ namespace 全局定位1
                 }
             }
         }
-        //更新队列程序
-        string[] separators = {"X:", "Y:", "P:" };
-        int pos = 0;
-        private void UpdateQueueValue()
-        {
-            while (data_warehouse.Length > 35)
-            {
-                //第一个换行符的位置
-                pos = data_warehouse.IndexOf('\n');
-                //断句第一个换行符
-                Debug.WriteLine("" + pos);
-                string s = data_warehouse.Remove(pos).ToUpper();//错
-                //删掉读到的第一句话
-                data_warehouse = data_warehouse.Remove(0, pos + 1);
-                //开始断句
-                string[] words = s.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-                //读取断句中的数据
-
-                try
-                {
-                    //float d1 = Convert.ToSingle(words[0]);
-                    //float d2 = Convert.ToSingle(words[1]);
-
-                    x = Convert.ToDouble(words[2]);
-                    y = Convert.ToDouble(words[3]);
-                    p = Convert.ToDouble(words[4]);
-                   
-                    Debug.WriteLine(words[2]);
-                    Debug.WriteLine(words[3]);
-                    Debug.WriteLine(words[4]);
-                    
-                    RotateFormCenter(pictureBox2.Image, (float)p);//这里我需要得到陀螺仪给的角度p，任意角度旋转
-                    this.pictureBox2.Refresh();  
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e.ToString());
-                }
-            }
-        }
 
         private bool huitu_flag = false;
 
         private void button4_Click(object sender, EventArgs e)//开始画图按钮
         {
-            
-            if(!huitu_flag)
+            huitu_flag = !huitu_flag;
+            if (huitu_flag)
             {
                 //开始绘图
-                huitu_flag = !huitu_flag;
-
                 if (data_warehouse.Length > 0)
                 {
 
@@ -240,16 +225,19 @@ namespace 全局定位1
                 pictureBox1.Image = imgofGroud;
 
                 button4.Text = "停止绘图";
+
+                timer1.Interval = 100;
+                timer1.Start();
             }
             else
             {
                 //停止绘图
-                huitu_flag = !huitu_flag;
-
                 pictureBox2.Image = null;
                 pictureBox1.Image = null;
 
                 button4.Text = "开始绘图";
+
+                timer1.Stop();
             }
         }
 
@@ -260,85 +248,56 @@ namespace 全局定位1
             this.comboBox2.Items.AddRange(ports);
         }
 
-        public int   a = 0, b = 0;
-   
-        private void timer1_Tick(object sender, EventArgs e)//关于小车运动的计时器
-        {
-            pictureBox2.Left =Convert.ToInt16(y);
-            pictureBox2.Top = Convert.ToInt16(x); ;//赋予小车坐标位置
-        }
-
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-
-            System.DateTime currentTime = new System.DateTime();
-            currentTime = System.DateTime.Now;
-            textBox1.AppendText("(" + currentTime.Year + "/" + currentTime.Month + "/" + currentTime.Day + " " + currentTime.Hour + ":" + currentTime.Minute + ":" + currentTime.Second + ")\n");  //添加文本
-            textBox1.AppendText("   x: " + x + " y :" + y + " p: " + p + "\n");
-            textBox1.ScrollToCaret();    //自动显示至最后行
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            timer1.Stop();
-            timer2.Stop();
-            timer3.Stop();
-            
-        }
-        private void button5_Click(object sender, EventArgs e)
-        {
-            pictureBox2.Location = new Point(372, 700);//使picturebox移动
-            Thread.Sleep(200);
-            timer1.Stop();
-            timer2.Stop();
-            timer3.Stop();
-            
-        }
-
         Image i = Image.FromFile("车.PNG");
 
-        private void button3_Click_1(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)//关于小车运动的计时器
         {
-            for(int a = 0;a<1000;a++)
-            {
-                //pictureBox2.Image = null;
-                //i.Dispose();
-                //i = (Image)imgofCar.Clone();
-                //RotateFormCenter(i, a);
-                //pictureBox2.Image = i;
+            //按XYP数据绘制 pictureBox位置姿态
+            pictureBox2.Left = Origin_Position[0] + Convert.ToInt16(x / 5000 * pictureBox1.Width);
+            pictureBox2.Top = Origin_Position[1] - Convert.ToInt16(y / 5000 * pictureBox1.Height) - pictureBox2.Height / 2;//赋予小车坐标位置
 
-                RotateFormCenter(pictureBox2, a);
-            }
-           
+            RotateFormCenter(pictureBox2, p);
+
+            //更新实际位置的groupbox数据
+            label6.Text = x + "";
+            label7.Text = y + "";
+            label8.Text = p + "";
+
         }
 
-        private void RotateFormCenter(Image image, float angle)//任意角度旋转的方法
-        {
-            Graphics g = Graphics.FromImage(image);
-                Matrix x = new Matrix();
-                PointF point = new PointF(image.Width / 2f,image.Height / 2f);
-                x.RotateAt(angle, point);
-                g.Transform = x;
-                g.DrawImage(image, 0, 0);
-                g.Dispose();
-        }
         private void button6_Click(object sender, EventArgs e)
         {
             serialPort1.WriteLine(textBox2.Text);
         }
 
-        private void RotateFormCenter(PictureBox pb, float angle)//任意角度旋转的方法
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            Bitmap bmp = new Bitmap(imgofCar);
-            Graphics g = Graphics.FromImage(bmp);
+
+        }
+
+        private void RotateFormCenter(Image image, double angle)//任意角度旋转的方法
+        {
+            Graphics g = Graphics.FromImage(image);
             Matrix x = new Matrix();
-            PointF point = new PointF(bmp.Width / 2f, bmp.Height / 2f);
-            x.RotateAt(angle, point);
+            PointF point = new PointF(image.Width / 2f, image.Height / 2f);
+            x.RotateAt((float)angle, point);
             g.Transform = x;
-            g.DrawImage(bmp, 0, 0);
+            g.DrawImage(image, 0, 0);
             g.Dispose();
-            pb.Image = bmp;
+        }
+
+        private void RotateFormCenter(PictureBox pb, double angle)//任意角度旋转的方法
+        {
+            pb.Image = null;
+            i.Dispose();
+            i = (Image)imgofCar.Clone();
+            RotateFormCenter(i, angle);
+            pb.Image = i;
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
