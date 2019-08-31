@@ -22,7 +22,7 @@ namespace 全局定位1
 
         Stopwatch sw = new Stopwatch();
 
-        //PID暂存
+        //!PID暂存
         double x = 0;
         double y = 0;
         double p = 0;
@@ -31,7 +31,7 @@ namespace 全局定位1
         public Image imgofCar = Image.FromFile("车.PNG");
         public Image imgofGroud = Image.FromFile("比赛场地.PNG");
 
-        //绘图原点
+        //!绘图原点
         int[] Origin_Position = new int[2];//{pictureBox1.Width, pictureBox1.Height};
 
         public Form1()
@@ -179,7 +179,7 @@ namespace 全局定位1
                 //第一个换行符的位置
                 pos = data_warehouse.IndexOf('\n');
                 //断句第一个换行符
-                Debug.WriteLine("" + pos);
+                //Debug.WriteLine("" + pos);
                 string s = data_warehouse.Remove(pos).ToUpper();//错
                 //删掉读到的第一句话
                 data_warehouse = data_warehouse.Remove(0, pos + 1);
@@ -193,9 +193,9 @@ namespace 全局定位1
                     y = Convert.ToDouble(words[1]);
                     p = Convert.ToDouble(words[2]);
 
-                    Debug.WriteLine(words[0]);
-                    Debug.WriteLine(words[1]);
-                    Debug.WriteLine(words[2]);
+                    //Debug.WriteLine(words[0]);
+                    //Debug.WriteLine(words[1]);
+                    //Debug.WriteLine(words[2]);
                 }
                 catch (Exception e)
                 {
@@ -228,6 +228,8 @@ namespace 全局定位1
 
                 timer1.Interval = 100;
                 timer1.Start();
+
+                pictureBox1.Paint += new PaintEventHandler(pictureBox1_Paint);
             }
             else
             {
@@ -238,6 +240,7 @@ namespace 全局定位1
                 button4.Text = "开始绘图";
 
                 timer1.Stop();
+                pictureBox1.Paint -= new PaintEventHandler(pictureBox1_Paint);
             }
         }
 
@@ -250,21 +253,24 @@ namespace 全局定位1
 
         Image i = Image.FromFile("车.PNG");
 
+        //!每隔100ms执行一次
         private void timer1_Tick(object sender, EventArgs e)//关于小车运动的计时器
         {
-            //按XYP数据绘制 pictureBox位置姿态
+            //!按XYP数据绘制 pictureBox位置姿态
             pictureBox2.Left = Origin_Position[0] + Convert.ToInt16(x / 5000 * pictureBox1.Width);
             pictureBox2.Top = Origin_Position[1] - Convert.ToInt16(y / 5000 * pictureBox1.Height) - pictureBox2.Height / 2;//赋予小车坐标位置
 
             RotateFormCenter(pictureBox2, p);
 
-            //更新实际位置的groupbox数据
+            //!更新实际位置的groupbox数据
             label6.Text = x + "";
             label7.Text = y + "";
             label8.Text = p + "";
 
-        }
+            pictureBox1.Refresh();
 
+        }
+ 
         private void button6_Click(object sender, EventArgs e)
         {
             serialPort1.WriteLine(textBox2.Text);
@@ -298,6 +304,15 @@ namespace 全局定位1
         private void label9_Click(object sender, EventArgs e)
         {
 
+        }
+        int dd = 0;
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = Graphics.FromImage(pictureBox1.Image);
+            Point point2 = new Point();
+            point2.X = pictureBox2.Location.X* pictureBox1.Image.Width / 500;
+            point2.Y = pictureBox2.Location.Y* pictureBox1.Image.Height / 500;
+            g.FillEllipse(Brushes.Red, point2.X, point2.Y, 5, 5);
         }
     }
 }

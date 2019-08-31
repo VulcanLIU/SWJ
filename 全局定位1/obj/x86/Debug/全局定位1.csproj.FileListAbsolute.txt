@@ -56,3 +56,12 @@ G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\obj\x86\Debug\�
 G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\obj\x86\Debug\全局定位1.csproj.CoreCompileInputs.cache
 G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\obj\x86\Debug\全局定位1.exe
 G:\过去——I盘拓展\毕业设计\5-1\XD\SWJ\全局定位1\obj\x86\Debug\全局定位1.pdb
+G:\A-05-过去——I盘拓展\B-毕业设计\A-5-1 上位机\SWJ\SWJ\全局定位1\bin\Debug\全局定位1.exe
+G:\A-05-过去——I盘拓展\B-毕业设计\A-5-1 上位机\SWJ\SWJ\全局定位1\bin\Debug\全局定位1.pdb
+G:\A-05-过去——I盘拓展\B-毕业设计\A-5-1 上位机\SWJ\SWJ\全局定位1\obj\x86\Debug\全局定位1.csprojResolveAssemblyReference.cache
+G:\A-05-过去——I盘拓展\B-毕业设计\A-5-1 上位机\SWJ\SWJ\全局定位1\obj\x86\Debug\全局定位1.Form1.resources
+G:\A-05-过去——I盘拓展\B-毕业设计\A-5-1 上位机\SWJ\SWJ\全局定位1\obj\x86\Debug\全局定位1.Properties.Resources.resources
+G:\A-05-过去——I盘拓展\B-毕业设计\A-5-1 上位机\SWJ\SWJ\全局定位1\obj\x86\Debug\全局定位1.csproj.GenerateResource.Cache
+G:\A-05-过去——I盘拓展\B-毕业设计\A-5-1 上位机\SWJ\SWJ\全局定位1\obj\x86\Debug\全局定位1.csproj.CoreCompileInputs.cache
+G:\A-05-过去——I盘拓展\B-毕业设计\A-5-1 上位机\SWJ\SWJ\全局定位1\obj\x86\Debug\全局定位1.exe
+G:\A-05-过去——I盘拓展\B-毕业设计\A-5-1 上位机\SWJ\SWJ\全局定位1\obj\x86\Debug\全局定位1.pdb
